@@ -43,17 +43,17 @@ void draw(){
 
   if(p.available()>0){
   
-    String m=p.readString();
+   String m=p.readString();
     
-    int a = int(m.trim());
+   int a = int(m.trim());
     
-    println(a);
+   println(a);
     
-    if(a>250) fill(0,255,0);
-    
+   if(a>250) fill(0,255,0);
+   
    else     fill(255,0,0);
     
-    ellipse(150,150, 200,200);
+   ellipse(150,150, 200,200);
   }
   
 }
