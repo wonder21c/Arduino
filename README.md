@@ -51,7 +51,7 @@ void draw(){
     
     if(a>250) fill(0,255,0);
     
-    else      fill(255,0,0);
+   else     fill(255,0,0);
     
     ellipse(150,150, 200,200);
   }
