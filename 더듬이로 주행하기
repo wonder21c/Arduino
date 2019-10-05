@@ -1,0 +1,110 @@
+1.추가한점
+저희 팀에서는 조도 센서감지로 인해 정지또는 출발하도록 설계하였습니다.
+
+2.
+```c
+#include <Servo.h> 
+Servo servoLeft; 
+Servo servoRight;
+byte wLeftOld; 
+byte wRightOld;
+byte counter; 
+void setup() {
+  Serial.begin(9600);
+  pinMode(7, INPUT); 
+  pinMode(5, INPUT);  
+  pinMode(8, OUTPUT); 
+  pinMode(2, OUTPUT);  
+  tone(4, 3000, 1000); 
+  delay(1000); 
+  servoLeft.attach(13); 
+  servoRight.attach(12); 
+  wLeftOld = 0; 
+  wRightOld = 1;
+  counter = 0; 
+  
+} 
+void loop() {
+  byte wLeft = digitalRead(5);  
+  byte wRight = digitalRead(7); 
+  int a = analogRead(A0);
+  Serial.println(a); //a=a+1;
+
+if(a >= 30 ){
+  if(wLeft != wRight) { 
+     if ((wLeft != wLeftOld) &&   (wRight != wRightOld))
+     {
+         counter++; 
+         wLeftOld = wLeft; 
+         wRightOld = wRight;
+         if(counter == 4) 
+         {
+             wLeft = 0; 
+             wRight = 0;
+             counter = 0; 
+         }
+     }
+     else {
+         counter = 0; 
+     }
+  }
+  if((wLeft == 0) && (wRight == 0)) {
+     backward(3     00); 
+     turnLeft(800); 
+  }
+  else if(wLeft == 0) {
+     backward(300); 
+     turnRight(400); 
+  }
+  else if(wRight == 0) {
+     backward(300); 
+     turnLeft(400); 
+  }
+  else {
+     forward(20); 
+  }
+  
+ }
+ else if( a<30){
+    stop_(2000);
+ }
+}
+
+void forward(int time) {
+  servoLeft.writeMicroseconds(1700); 
+  servoRight.writeMicroseconds(1300); 
+  delay(time); 
+}
+void turnLeft(int time) {
+  servoLeft.writeMicroseconds(1300); 
+  servoRight.writeMicroseconds(1300); 
+  delay(time); 
+}
+void turnRight(int time) {
+  servoLeft.writeMicroseconds(1700); 
+  servoRight.writeMicroseconds(1700); 
+  delay(time); 
+}
+void backward(int time) {
+  servoLeft.writeMicroseconds(1300); 
+  servoRight.writeMicroseconds(1700); 
+  delay(time);
+}
+void stop_(int time) {
+  servoLeft.writeMicroseconds(1500); 
+  servoRight.writeMicroseconds(1500); 
+  delay(time);
+}
+```
+
+3.소감
+아두이노 자동차를 이용해 팀원들과 함께 저희 만의 자동차를 만들어 보면서 잘 이해되지 않거나
+모르는 부분에 대해서는 잘하는 친구에게 물어보거나 인터넷을 활용하여 저희에게 필요한 정보를 구하였습니다. 
+저희의 생각으로 아두이노 자동차를 제작하는 것이었기에 만드는 과정이 순탄하진 않았지만
+팀원들과 함께 서로 협력하고 부족한 부분을 채워 주면서 조금 더 쉽게 저희가 만든 자동차를 만들어 보고 이해해볼 수 있었던 것 같습니다. 
+이런 아두이노를 사용해 보면서 아두이노에 무궁무진한 가능성을 느꼈습니다. 
+언젠가는 아두이노를 열심히 공부하여 저희만의 작품을 만들어 보고 싶습니다. 아두이노 파이팅!
+이런 기회를 주신 심재창 교수님 감사합니다.
+
+4.유튜브 링크
+https://www.youtube.com/watch?v=jgjdo5DqR44&feature=youtu.be
